@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="user-scalable=no,width=device-width, minimum-scale=0.5, maximum-scale=1.0"/>
+	<style>
+		#start{
+			padding: 30px;
+			border-radius: 30px;
+			background: red;
+			text-align: center;
+		}
+		#result{
+			text-align: center;
+			font-size: 50px;
+		}
+	</style>
+	<title>Document</title>
+</head>
+<body>
+	<h1>测测你的手抖指数</h1>
+	<p>请拿着手机保持同一姿势五秒不动</p>
+	<div id='start'>开始</div>
+	<h2 id='result'>0</h2>
+</body>
+<script>
+	(function(){
+		var result = document.getElementById('result');
+		var start = document.getElementById('start');
+		var deviceMotionHandler = function(eventData){
+			var acceleration = eventData.acceleration;
+			result.innerHTML = parseFloat(result.innerHTML)+(Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z));
+		};
+		var count;
+		start.addEventListener('touchstart',function(e){
+			start.style.display='none';
+		var count = window.addEventListener('devicemotion', deviceMotionHandler, false);
+		setTimeout(function(){
+				window.removeEventListener('devicemotion',deviceMotionHandler,false);
+		},5000);
+		},false);
+	})();
+</script>
+</html>
